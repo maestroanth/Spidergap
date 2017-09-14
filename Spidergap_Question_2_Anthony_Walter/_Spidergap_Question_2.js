@@ -30,7 +30,7 @@ let getPartnerDistance = function (showAll, distanceFromLondon){
 	let count = 0;
 	
 	console.log('\n');	
-	
+		
 	/*error checking*/
 	if (distanceFromLondon < 0)
 	{
@@ -48,7 +48,8 @@ let getPartnerDistance = function (showAll, distanceFromLondon){
 	else{
 		console.log('Showing all partner companies less than ' + distanceFromLondon + ' km from Central London: \n')
 	}
-
+	
+	partners = sortPartners(partners);
 	
 	for (let i = 0; i < partners.length; i++){
 		for (let j = 0; j < partners[i]['offices'].length; j++){		
@@ -127,12 +128,40 @@ let toRadians = function (degrees)
 }//toRadians(degrees)
 
 /**********************************************************************************************
+*Sort the array by organization overriding the default sort method
+***********************************************************************************************/
+
+let sortPartners = function (partners){
+	
+	/*error checking*/
+	for(let i = 0; i < partners.length; i++){
+		if (!(partners[i].hasOwnProperty('organization'))){//each object has to have the 'organization' property
+			throw 'Object--"partners" has to have the key: "organization" to sort by ';
+		}
+	}
+	/*end error checking*/
+	
+	partners.sort(function(a, b){
+		let partnerA = a.organization.toLowerCase();
+		let partnerB = b.organization.toLowerCase();
+		if (partnerA < partnerB){ //sort string ascending
+			return -1;
+		}			
+		if (partnerA > partnerB){
+			return 1;
+		}
+		return 0; //default return value (no sorting)
+	});
+	return partners;
+}
+
+/**********************************************************************************************
 *Expose functions for testing purposes
 ***********************************************************************************************/
 exports.getGreatCircleDistance = getGreatCircleDistance;
 exports.toRadians = toRadians;
 exports.getPartnerDistance = getPartnerDistance;
-
+exports.sortPartners = sortPartners;
 
 /******************************************************************************************************
 *Main

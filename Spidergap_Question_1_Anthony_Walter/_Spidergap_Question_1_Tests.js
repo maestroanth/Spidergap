@@ -24,15 +24,20 @@ function runTests()
 			count++;//increases tally if pass
 		}
 	}
+	
 	if(count == testArray.length){
 		allTrue = true;//if count tally equals the number of totals tests, bool to true
 	}
 	else{
 		console.log("\nUnfortunately, one or more tests failed....");
 	}
+	
 	return allTrue;
 }//runTests()
 
+/************************************************************************************************************
+*Array of test functions
+*************************************************************************************************************/
 let testArray = [
 	function test1(){
 		let result = 'fail';//test defaults to "fail" before it meets conditions to pass
@@ -52,6 +57,7 @@ let testArray = [
 			
 			console.log('Error Thrown: ' + err);
 		}
+		
 		console.log('Test Result: ' + result);
 		return result;
 	},
@@ -100,7 +106,7 @@ let testArray = [
 		console.log('Input: ' + JSON.stringify(objectToClone));
 		console.log('Output: ' + JSON.stringify(clonedObject));
 		
-		if(JSON.stringify(objectToClone) != JSON.stringify(clonedObject)){//if "country" is different then it's a deep clone
+		if(JSON.stringify(objectToClone) != JSON.stringify(clonedObject)){//if "country" is different, then it's a deep clone
 			result = 'pass';
 		}
 		console.log('Test Result: ' + result);
@@ -112,11 +118,12 @@ let testArray = [
 		let objectToClone = JSON.parse('{"name": "Paddy", "address": {"town": "Lerum", "country": "Sweden"}}');
 		let clonedObject = objectToClone;
 		
-		console.log('\nExample: Showing a shallow copy(Modifying one object also reflects on the other)');
+		console.log('\nExample: Shallow clone (Modifying one object also reflects on the other)');
 		objectToClone['address']['country'] = 'Martian Empire';//affects both "objectToClone" and "clonedObject"
 		console.log('Input: ' + JSON.stringify(objectToClone));
 		console.log('Output: ' + JSON.stringify(clonedObject));
-		if(JSON.stringify(objectToClone) === JSON.stringify(clonedObject)){//if "country" is same then it's a shallow clone
+		
+		if(JSON.stringify(objectToClone) === JSON.stringify(clonedObject)){//if "country" is same, then it's a shallow clone
 			result = 'pass';
 		}
 		console.log('Test Result: ' + result);

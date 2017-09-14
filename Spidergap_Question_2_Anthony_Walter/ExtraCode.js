@@ -1,4 +1,4 @@
-/**Here is some extra code that can be easily injected into the .js file submission**/  
+/**Here is some extra code I played with that can be easily injected into the .js file submission**/  
 
 /**********************************************************************************************
 *Starts a server over localhost:8080
@@ -37,7 +37,7 @@ This code was to simulate the API call which would normally take place to retrie
 was the original method I tried when retrieving the JSON file.
 However, it looks CORS is not enabled on server when I tried it which I assume is intentional by 
 the server admin, so in it's place, this submission will be done by a node.js compile for the sake of using 
-http require().
+http require() and outputting via console rather than HTML.
 *********************************************************************************************************/
 
 let url = https://success.spidergap.com/partners.json;
@@ -69,6 +69,6 @@ function loadJSON(path, success, error)
 }//loadJSON(path, success, error)
 
  /**Author Note: I did contemplate the option of writing code prompting the user first to initialize the showAll 
-and distanceFromLondon variables which I would probably do in real-life, but I decided against it due to time constraints
-since it wasn't necessarily part of the scope requirement. This at least outputs the assignment
-instructions exactly as indicated on the default settings.**/
+and distanceFromLondon variables which I would probably do in real-life to give the program more flexibility
+(which was why distanceFromLondon isn't a constant), but I decided against it due to time constraints since it 
+wasn't necessarily part of the scope requirement.**/

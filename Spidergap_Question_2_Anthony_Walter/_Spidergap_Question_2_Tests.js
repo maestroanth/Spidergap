@@ -38,6 +38,9 @@ function runTests()
 	return allTrue;
 }//runTests()
 
+/************************************************************************************************************
+*Array of test functions
+*************************************************************************************************************/
 let testArray = [
 	function test1(){
 		let result = 'fail';//test defaults to "fail" before it meets conditions to pass
@@ -92,7 +95,6 @@ let testArray = [
 		
 		try{
 			main.getGreatCircleDistance(newLat, newLon);
-
 		}
 		catch (err){
 			if (err == 'Variable--"newLon" has to be degrees in between -180 and (+)180 '){
@@ -114,7 +116,6 @@ let testArray = [
 		
 		try{
 			main.getGreatCircleDistance(newLat, newLon);
-
 		}
 		catch (err){
 			if (err == 'Variable--"newLon" has to be degrees in between -180 and (+)180 '){
@@ -137,7 +138,6 @@ let testArray = [
 		
 		try{
 			distance = main.getGreatCircleDistance(newLat, newLon);
-
 		}
 		catch (err){
 			result = 'fail';//error shouldn't be thrown
@@ -162,7 +162,6 @@ let testArray = [
 		
 		try{
 			distance = main.getGreatCircleDistance(newLat, newLon);
-
 		}
 		catch (err){
 			result = 'fail';//error shouldn't be thrown
@@ -372,6 +371,69 @@ let testArray = [
 		}
 		enableLogger();
 		console.log('Output: ' + count);
+		console.log('Test Result: ' + result);
+		return result;
+	},
+	
+	function test15(){
+		let result = 'fail';
+		let partners = require('./partners.json');
+		
+		console.log('\nTest 15: Should throw correct error if property "organization" does not exist to sort by ');
+		
+		/*changing all "organization" keys in partners array to "company" keys*/
+		for(let i = 0; i < partners.length; i++){
+			partners[i].company = partners[i]['organization'];//copying values into new key
+			delete partners[i].organization;//delete old key
+		}
+		
+		try{
+			disableLogger();
+			main.sortPartners(partners);
+		}
+		catch (err){
+			//make sure correct error is thrown before 
+			if (err == 'Object--"partners" has to have the key: "organization" to sort by '){
+				result = 'pass';
+			}
+			console.log('Error Thrown: ' + err);
+		}
+		
+		enableLogger();
+		console.log('Test Result: ' + result);
+		
+		/*changing all "company" keys in partners array back to "organization" keys to not bug future tests to be undefined*/
+		for(let i = 0; i < partners.length; i++){
+			partners[i].organization = partners[i]['company'];//copying values into new key
+			delete partners[i].company;//delete old key
+		}
+		
+		return result;
+	},
+	
+	function test16(){
+		let result = 'pass';//this last test it is easier to default true, and then trigger false
+		let partners = require('./partners.json');
+		
+		console.log('\nTest 16: Should be sorted alphabetical order ');
+	
+		try{
+			disableLogger();
+			partners = main.sortPartners(partners);
+		}
+		catch (err){
+			result = 'fail';
+			console.log('Error Thrown: ' + err);
+		}
+		
+		for(let i = 0; i < partners.length - 1; i++){
+			if(partners[i]['organization'] > partners[i+1]['organization'])
+			{
+				result = 'fail';
+			}
+		}
+		
+		enableLogger();
 		console.log('Test Result: ' + result);
 		return result;
 	}
