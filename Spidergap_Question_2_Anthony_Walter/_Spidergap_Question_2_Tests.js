@@ -427,7 +427,8 @@ let testArray = [
 		}
 		
 		for(let i = 0; i < partners.length - 1; i++){
-			if(partners[i]['organization'] > partners[i+1]['organization'])
+			//letter 'b' > letter 'a'
+			if(partners[i]['organization'].toLowerCase() > partners[i+1]['organization'].toLowerCase())
 			{
 				result = 'fail';
 			}
