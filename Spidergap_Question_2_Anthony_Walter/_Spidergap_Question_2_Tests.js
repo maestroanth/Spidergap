@@ -396,10 +396,11 @@ let testArray = [
 			if (err == 'Object--"partners" has to have the key: "organization" to sort by '){
 				result = 'pass';
 			}
+			enableLogger();
 			console.log('Error Thrown: ' + err);
 		}
 		
-		enableLogger();
+		
 		console.log('Test Result: ' + result);
 		
 		/*changing all "company" keys in partners array back to "organization" keys to not bug future tests to be undefined*/
@@ -414,6 +415,7 @@ let testArray = [
 	function test16(){
 		let result = 'pass';//this last test it is easier to default true, and then trigger false
 		let partners = require('./partners.json');
+		let count = 0;
 		
 		console.log('\nTest 16: Should be sorted alphabetical order ');
 	
@@ -428,6 +430,7 @@ let testArray = [
 		
 		for(let i = 0; i < partners.length - 1; i++){
 			//letter 'b' > letter 'a'
+			count ++;
 			if(partners[i]['organization'].toLowerCase() > partners[i+1]['organization'].toLowerCase())
 			{
 				result = 'fail';
@@ -435,6 +438,7 @@ let testArray = [
 		}
 		
 		enableLogger();
+		console.log(count + ' partner objects pairs checked for lexicographical order');
 		console.log('Test Result: ' + result);
 		return result;
 	}
